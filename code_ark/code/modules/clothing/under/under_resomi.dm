@@ -1,7 +1,7 @@
 /obj/item/clothing/under/resomi
 	name = "small grey smock"
 	desc = "It looks fitted to nonhuman proportions."
-	icon = 'code_ark/icons/obj/clothing/species/resomi/uniform.dmi'
+	icon = 'code_ark/icons/obj/clothing/species/resomi/obj_under_resomi.dmi'
 	icon_state = "resomi_grey"
 	item_state = "resomi_grey"
 	species_restricted = list(SPECIES_RESOMI)
@@ -142,11 +142,11 @@
 	name = "black and orange undercoat"
 	desc =  "Once developed by Xen'Corp clothing for refugees of the Resomi race.\
 	Made of micro and nanofibres to make it light and billowy, perfect for going fast and stylishly!"
-	icon = 'code_ark/icons/obj/clothing/species/resomi/resomi_uniform.dmi'
+	icon = 'code_ark/icons/obj/clothing/species/resomi/obj_under_resomi.dmi'
 	icon_state = "tesh_uniform_bo"
 	item_state = "tesh_uniform_bo"
 	sprite_sheets = list(
-		SPECIES_RESOMI = 'code_ark/icons/obj/clothing/species/resomi/resomi_uniform.dmi'
+		SPECIES_RESOMI = 'code_ark/icons/mob/species/resomi/onmob_under_resomi.dmi'
 		)
 
 /obj/item/clothing/under/resomi/undercoat/standard/black_grey

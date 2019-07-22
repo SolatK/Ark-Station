@@ -9,10 +9,10 @@
 	blood_mask =      'icons/mob/human_races/species/vox/blood_mask.dmi'
 
 	unarmed_types = list(
-		/datum/unarmed_attack/stomp, 
-		/datum/unarmed_attack/kick,  
-		/datum/unarmed_attack/claws/strong, 
-		/datum/unarmed_attack/punch, 
+		/datum/unarmed_attack/stomp,
+		/datum/unarmed_attack/kick,
+		/datum/unarmed_attack/claws/strong,
+		/datum/unarmed_attack/punch,
 		/datum/unarmed_attack/bite/strong
 	)
 	rarity_value = 4
@@ -59,7 +59,7 @@
 	siemens_coefficient = 0.2
 
 	species_flags = SPECIES_FLAG_NO_SCAN
-	spawn_flags = SPECIES_CAN_JOIN | SPECIES_IS_WHITELISTED | SPECIES_NO_FBP_CONSTRUCTION
+	spawn_flags = SPECIES_CAN_JOIN | SPECIES_NO_FBP_CONSTRUCTION
 	appearance_flags = HAS_EYE_COLOR | HAS_HAIR_COLOR
 
 	blood_color = "#2299fc"
