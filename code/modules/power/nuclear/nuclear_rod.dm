@@ -20,7 +20,6 @@ var/list/nrods = list()
 	var/list/reactants = list()
 	var/integrity = 100
 	var/broken = 0
-	var/id_tag
 	var/obj/item/weapon/nuclearfuel/rod/F = null
 	var/list/possible_reactions = new /list(0)
 
@@ -191,6 +190,7 @@ var/list/nrods = list()
 
 
 /obj/machinery/power/nuclear_rod/proc/React()
+	var/repeats = 0
 	if((SSradiation.get_rads_at_turf(get_turf(src)) - own_rads) > 0)
 		reaction_rads += SSradiation.get_rads_at_turf(get_turf(src)) - own_rads
 	if (reaction_rads < 0)
@@ -199,13 +199,19 @@ var/list/nrods = list()
 	if(reactants.len)
 		var/list/produced_reactants = new /list(0)
 		for(var/p_reaction_type in subtypesof(/decl/nuclear_reaction))
+			if(repeats > 60)
+				break
+			repeats += 1
 			var/decl/nuclear_reaction/p_reaction = new p_reaction_type
 			if(!p_reaction.substance || (p_reaction.type in possible_reactions))
 				continue
 			if(reactants[p_reaction.substance] && reaction_rads >= p_reaction.required_rads)
 				possible_reactions += p_reaction.type
-
-		while(possible_reactions.len)                 //? ?????? ??? ??????? ??????
+		repeats = 0
+		while(possible_reactions.len)
+			if(repeats > 40)
+				break
+			repeats += 1                 //? ?????? ??? ??????? ??????
 			var/cur_reaction_type = pick(possible_reactions)
 			var/decl/nuclear_reaction/cur_reaction = new cur_reaction_type
 			var/max_num_reactants = 0
@@ -232,7 +238,7 @@ var/list/nrods = list()
 				amount_reacting = reactants[cur_reaction.substance]
 				reactants[cur_reaction.substance] = 0
 
-			if((amount_reacting * cur_reaction.heat_production * 100) < 4000)
+			if((amount_reacting * cur_reaction.heat_production * 40) < 5000)
 				if(((rodtemp + amount_reacting * cur_reaction.heat_production * 320) < 3000) || ((amount_reacting * cur_reaction.heat_production * 320) < 250))
 					rodtemp += amount_reacting * cur_reaction.heat_production * 320
 				else
@@ -240,6 +246,8 @@ var/list/nrods = list()
 						rodtemp += amount_reacting * cur_reaction.heat_production * 100
 					else
 						rodtemp += amount_reacting * cur_reaction.heat_production * 40
+			else
+				break
 
 			if(own_rads < 300)
 				own_rads += amount_reacting * cur_reaction.radiation * 65
@@ -247,8 +255,12 @@ var/list/nrods = list()
 				own_rads += amount_reacting * cur_reaction.radiation * 30
 			else if(own_rads < 5000)
 				own_rads += amount_reacting * cur_reaction.radiation * 10
-
+			var/innerrep = 0
 			for(var/pr_reactant in cur_reaction.products)   //?I ?t???q?p?r?|???u?} ???????t???{???? ???u?p?{???y?y
+				if(innerrep > 60)
+					break
+					break
+				innerrep += 1
 				var/success = 0
 				for(var/check_reactant in produced_reactants)
 					if(check_reactant == pr_reactant)
@@ -257,10 +269,13 @@ var/list/nrods = list()
 						break
 				if(!success)
 					produced_reactants[pr_reactant] = cur_reaction.products[pr_reactant] * amount_reacting
-
+			innerrep = 0
 			possible_reactions -= cur_reaction.type
-
+		repeats = 0
 		for(var/prreactant in produced_reactants)
+			if(repeats > 100)
+				break
+			repeats += 1
 			AddReact(prreactant, produced_reactants[prreactant])  //?p ???u???u???? ?r???u ???????y?x?r?u?t?u?~?~???u ?y?t?u?? ???q???p???~?? ?r ???u?{???p?~????
 	return 1
 
@@ -289,6 +304,3 @@ var/list/nrods = list()
 	accepted_rads = 200
 	reactants = list("U235" = 1000, "U238" = 2000)
 	id_tag = "pripyat"
-
-
-

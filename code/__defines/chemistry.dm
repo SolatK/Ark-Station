@@ -25,6 +25,9 @@
 #define IS_XENOS   5
 #define IS_SLIME   6
 #define IS_NABBER  7
+#define IS_SLIME   5
+#define IS_NABBER  6
+#define IS_MANTID  7
 #define IS_RESOMI  8
 
 #define CE_STABLE        "stable"       // Inaprovaline
@@ -49,6 +52,8 @@
 #define CE_SQUEAKY		 "squeaky"      // Helium voice. Squeak squeak.
 #define CE_THIRDEYE      "thirdeye"     // Gives xray vision.
 #define CE_SEDATE        "sedate"       // Applies sedation effects, i.e. paralysis, inability to use items, etc.
+#define CE_ENERGETIC     "energetic"    // Speeds up stamina recovery.
+#define	CE_VOICELOSS     "whispers"     // Lowers the subject's voice to a whisper
 
 //reagent flags
 #define IGNORE_MOB_SIZE 0x1

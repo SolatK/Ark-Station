@@ -12,13 +12,16 @@
 	if(hud_data.icon)
 		ui_style = hud_data.icon
 
-	src.adding = list()
-	src.other = list()
+	adding = list()
+	other = list()
 	src.hotkeybuttons = list() //These can be disabled for hotkey usersx
 
 	var/list/hud_elements = list()
 	var/obj/screen/using
 	var/obj/screen/inventory/inv_box
+
+	stamina_bar = new
+	adding += stamina_bar
 
 	// Draw the various inventory equipment slots.
 	var/has_hidden_gear
@@ -64,8 +67,8 @@
 		hud_elements |= using
 
 	if(hud_data.has_m_intent)
-		using = new /obj/screen()
-		using.SetName("mov_intent")
+		using = new /obj/screen/movement()
+		using.SetName("movement method")
 		using.icon = ui_style
 		using.icon_state = mymob.move_intent.hud_icon_state
 		using.screen_loc = ui_movi
@@ -184,7 +187,7 @@
 		mymob.healths.SetName("health")
 		mymob.healths.screen_loc = ui_health
 		hud_elements |= mymob.healths
-		
+
 		mymob.oxygen = new /obj/screen/oxygen()
 		mymob.oxygen.icon = 'icons/mob/status_indicators.dmi'
 		mymob.oxygen.icon_state = "oxy0"
@@ -249,6 +252,20 @@
 	mymob.pain = new /obj/screen/fullscreen/pain( null )
 	hud_elements |= mymob.pain
 
+	mymob.fixeye = new /obj/screen()
+	mymob.fixeye.icon = 'code_ark/icons/hud.dmi'
+	mymob.fixeye.icon_state = "fixeye"
+	mymob.fixeye.name = "fixeye"
+	mymob.fixeye.screen_loc = ui_fixeye
+	hud_elements |= mymob.fixeye
+
+	mymob.holster = new /obj/screen()
+	mymob.holster.icon = 'code_ark/icons/hud.dmi'
+	mymob.holster.icon_state = "holster"
+	mymob.holster.name = "holster"
+	mymob.holster.screen_loc = ui_holster
+	hud_elements |= mymob.holster
+
 	mymob.zone_sel = new /obj/screen/zone_sel( null )
 	mymob.zone_sel.icon = ui_style
 	mymob.zone_sel.color = ui_color
@@ -297,7 +314,7 @@
 		client.screen -= hud_used.hotkeybuttons
 		hud_used.hotkey_ui_hidden = 1
 
-// Yes, these use icon state. Yes, these are terrible. The alternative is duplicating 
+// Yes, these use icon state. Yes, these are terrible. The alternative is duplicating
 // a bunch of fairly blobby logic for every click override on these objects.
 
 /obj/screen/food/Click(var/location, var/control, var/params)
@@ -377,3 +394,7 @@
 			to_chat(usr, SPAN_NOTICE("You are breathing easy."))
 		else
 			to_chat(usr, SPAN_DANGER("You cannot breathe!"))
+
+/obj/screen/movement/Click(var/location, var/control, var/params)
+	if(istype(usr))
+		usr.set_next_usable_move_intent()
