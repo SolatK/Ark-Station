@@ -335,6 +335,7 @@ datum/unit_test/mob_damage/halloss
 
 datum/unit_test/mob_damage/resomi
 	name = "MOB: Resomi damage check template"
+	template = /datum/unit_test/mob_damage/resomi
 	mob_type = /mob/living/carbon/human/resomi
 
 datum/unit_test/mob_damage/resomi/brute
