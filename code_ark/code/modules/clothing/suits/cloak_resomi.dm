@@ -38,8 +38,8 @@
 /obj/item/clothing/suit/storage/resomicloak
 	name = "black and orange cloak"
 	desc = "It drapes over a Resomes's shoulders and closes at the neck with pockets convienently placed inside."
-	icon = 'code_ark/icons/obj/clothing/species/resomi/resomi_cloak.dmi'
-	item_icons = list(slot_wear_suit_str = 'code_ark/icons/obj/clothing/species/resomi/resomi_cloak.dmi')
+	icon = 'code_ark/icons/obj/clothing/species/resomi/obj_suit_resomi.dmi'
+	item_icons = list(slot_wear_suit_str = 'code_ark/icons/obj/clothing/species/resomi/obj_suit_resomi.dmi')
 	icon_state = "tesh_cloak_bo"
 	species_restricted = list(SPECIES_RESOMI)
 	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO
